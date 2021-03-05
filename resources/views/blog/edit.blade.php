@@ -43,6 +43,7 @@
                 <textarea name="content" cols="120" rows="10">{{$blog->content}}</textarea>
               </div>
             </div>
+
  
             <div class="form-group row">
               <label for="staticEmail" class="col-sm-2 col-form-label">Status</label>
@@ -65,6 +66,20 @@
                 <label>Tidak</label>
               </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Kategori</label>
+                <div class="col-sm-10">
+                <select name="{{$blog->category_id}}">
+                <option value="">Select Category</option>
+                    @foreach ($category as $key)
+                        <option value="{{$key->id}}"> 
+                            {{ $key->category_name }} 
+                        </option>
+                    @endforeach    
+                </select>
+            </div>
+            
             <button type="submit" class="btn btn-primary float-right">Save</button>
           </form>
         </div>

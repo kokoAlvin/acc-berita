@@ -17,12 +17,14 @@ class CreateBlogTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->notNullable();
             $table->text('content')->notNullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->notNullable();
             
             $table->integer('status')->length(1)->nullable()->default(0);
             $table->dateTime('accepted_at')->nullable();
             $table->boolean('flag_active')->notNullable()->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
             $table->timestamps();
         });
     }

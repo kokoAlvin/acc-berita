@@ -12,7 +12,15 @@
                     <div class="col-md-6 mt-2">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{$blog->title}}</h5>
+                                <h5 class="card-title">{{$blog->title}} -
+                                @if($blog->category_id == null)
+                                    Belum ada category  
+                                @else  
+                                    {{$blog->category->category_name}}
+                                @endif
+                                
+                                
+                                </h5>
                                 <a href="{{route('blog.show',['id' => $blog->id])}}" class="card-subtitle mb-2 text-muted">{{$blog->user->name}}</a>
                                 <!-- <h6 class="card-subtitle mb-2 text-muted">{{$blog->user->name}}</h6> -->
                             </div>

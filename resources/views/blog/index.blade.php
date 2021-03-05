@@ -28,7 +28,13 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">
-                    {{$blog->title}}
+                    {{$blog->title}} - 
+                    
+                    @if($blog->category_id == null)
+                      Belum ada category  
+                    @else  
+                      {{$blog->category->category_name}}
+                    @endif
                   </h5>
                   <div class="row float-right">
                     <a href="{{route('blog.show',['id' => $blog->id])}}" class="btn btn-primary mr-2" target="_blank">

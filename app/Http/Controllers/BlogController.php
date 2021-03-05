@@ -8,9 +8,12 @@ use App\Blog;
 use App\Http\Requests\BlogStoreRequest;
 use App\Http\Requests\BlogUpdateRequest;
 use App\User;
+use App\Category;
 use Illuminate\Support\Facades\Mail;
 use App\Services\EmailService;
 use App\Services\BlogService;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 
 class BlogController extends Controller
@@ -25,22 +28,24 @@ class BlogController extends Controller
 
     }
     public function index(Request $request){
-        $Blog = new Blog;
+        $Blog = Blog::with(['category']);
         $user_id = Auth::user()->id;
-
+        $category = Category::all();
         $blogs = $Blog->where('user_id',$user_id)->paginate(10);
 
         return view('blog.index',compact('blogs'));
     }
 
     public function create(Request $request){
-        return view('blog.create');
+        $category = DB::table('category')->get();
+        return view('blog.create',['category' => $category]);
     }
 
     public function store(BlogStoreRequest $request){
         $Blog = new Blog;
         $Blog->create([
             'title' => $request->title,
+            'category_id' => $request->category_id,
             'content' => $request->content,
             'user_id' => Auth::user()->id,
             'status' => 1,
@@ -53,9 +58,10 @@ class BlogController extends Controller
     public function edit(Request $request, $id){
         $Blog = new Blog;
         $blog = $Blog->whereId($id)->first();
+        $category = DB::table('category')->get();
         
         if($blog != null && $blog->user_id == Auth::user()->id){
-            return view('blog.edit',compact('blog'));
+            return view('blog.edit',compact('blog','category'));
         }else{
             return redirect()->route('blog.index');
         }
@@ -70,6 +76,7 @@ class BlogController extends Controller
             $Blog->whereId($request->id)
                 ->update([
                 'title' => $request->title,
+                'category_id' => $request->category_id,
                 'content' => $request->content,
                 'status' => 1,
                 'flag_active' => $request->flag_active

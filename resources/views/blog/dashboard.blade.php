@@ -14,7 +14,14 @@
         <div class="float-right">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
             Filter
-          </button>               
+          </button>
+          <a class="ml-2" href="{{route('category.index')}}">
+            <button class="btn btn-md btn-success pull-right">
+                <i class="fas fa-plus-circle">
+                </i>
+                  Category
+            </button>
+          </a>           
         </div>
       </div>
     </div>

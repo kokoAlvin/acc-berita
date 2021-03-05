@@ -37,4 +37,12 @@ Route::post('/blog/{id}/reject', 'BlogController@reject')->name('blog.reject');
 Route::post('/blog/{id}/accept', 'BlogController@accept')->name('blog.accept');
 
 
+Route::get('/my-category', 'CategoryController@index')->name('category.index');
+Route::get('/category/create', 'CategoryController@create')->name('category.create');
+Route::post('/category', 'CategoryController@store')->name('category.store');
+
+Route::get('/category/{id}/edit', 'CategoryController@edit')->name('category.edit');
+Route::put('/category', 'CategoryController@update')->name('category.update');
+
+
 

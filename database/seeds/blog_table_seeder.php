@@ -20,6 +20,7 @@ class blog_table_seeder extends Seeder
                 DB::table('blog')->insert([
                     'title' => $faker->articleTitle,
                     'content' => $faker->articleContentMarkdown,
+                    'category_id' => null,
                     'user_id' => $i,
                     'status' => 3,
                     'accepted_at' => '2020-01-01 00:00:00',
